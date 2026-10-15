@@ -5,12 +5,12 @@ import { ArrowRight } from "lucide-react";
 import { destinations } from "@/lib/travel-content";
 
 export const metadata: Metadata = {
-  title: "Jammu, Kashmir & Himachal Destinations",
+  title: "Mountain Destinations in India | Plan My Trip",
   description:
-    "Explore popular destinations and travel circuits across Jammu, Kashmir and Himachal Pradesh.",
+    "Explore destinations and travel circuits across Jammu, Kashmir, Himachal Pradesh, Uttarakhand and Ladakh.",
 };
 
-const regions = ["Kashmir", "Jammu", "Himachal Pradesh"] as const;
+const regions = ["Kashmir", "Jammu", "Himachal Pradesh", "Uttarakhand", "Ladakh"] as const;
 const coverPhotos: Record<string, string> = {
   "katra-vaishno-devi": "/images/vaishno-devi-yatra.png",
   srinagar: "/images/srinagar-dal-lake.png",
@@ -61,7 +61,7 @@ export default function DestinationsPage() {
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-7 text-ink/70 md:text-lg">
             Browse popular places and regional travel circuits across Kashmir,
-            Jammu and Himachal Pradesh. Select a place to see highlights and
+            Jammu, Himachal Pradesh, Uttarakhand and Ladakh. Select a place to see highlights and
             start planning.
           </p>
         </div>

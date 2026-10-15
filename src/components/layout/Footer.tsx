@@ -13,6 +13,9 @@ const destinations = [
   { href: "/destinations/shimla", label: "Shimla" },
   { href: "/destinations/manali", label: "Manali" },
   { href: "/destinations/spiti-valley", label: "Spiti Valley" },
+  { href: "/destinations/uttarakhand", label: "Uttarakhand" },
+  { href: "/destinations/char-dham", label: "Char Dham Yatra" },
+  { href: "/destinations/leh-ladakh", label: "Leh-Ladakh" },
 ];
 
 // Cache Components forbids reading the clock during prerender; "use cache" is the sanctioned fix.

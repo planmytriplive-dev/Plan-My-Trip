@@ -46,6 +46,9 @@ const coverPhotos: Record<string, string> = {
   "palampur-bir": "/images/kullu%20valley.png",
   chamba: "/images/Kinnaur,%20Kalpa,%20Sangla%20%26%20Chitkul.png",
   "mandi-prashar": "/images/Mandi%20%26%20Prashar%20Lake.png",
+  uttarakhand: "/images/himachal_landscape.png",
+  "char-dham": "/images/vaishno-devi-yatra.png",
+  "leh-ladakh": "/images/spiti%20valley.png",
 };
 
 // Use the local photos for individual stops when we have a direct match.
