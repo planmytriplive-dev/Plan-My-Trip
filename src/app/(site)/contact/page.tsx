@@ -33,7 +33,7 @@ export default function ContactPage() {
             </h1>
             <p className="mt-4 max-w-2xl text-base leading-7 text-ink/70 md:text-lg">
               Tell us when you're travelling and what you'd like to see. Our team
-              can help you plan your Vaishno Devi yatra or Kashmir holiday.
+              can help you plan your Vaishno Devi yatra , Kashmir holiday or Himachal tour, and answer questions about local transport, stays and itineraries.  
             </p>
           </div>
 
