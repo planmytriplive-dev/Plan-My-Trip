@@ -1,5 +1,6 @@
 // SINGLE SOURCE OF TRUTH for business details. Never hardcode these elsewhere.
 const RAW_PHONE = "7006298659";
+const RAW_PHONE_SECONDARY = "9906476847";
 
 export const site = {
   name: "Plan My Trip",
@@ -8,7 +9,9 @@ export const site = {
   logo: "/logo/logo.png", // rename your logo file to logo.png (or change this path)
   url: "https://planmytrip.live",
   phoneDisplay: "70062 98659",
+  phoneSecondaryDisplay: "99064 76847",
   phoneE164: `+91${RAW_PHONE}`,
+  phoneSecondaryE164: `+91${RAW_PHONE_SECONDARY}`,
   whatsappNumber: `91${RAW_PHONE}`,
   email: "planmytriplive@gmail.com",
   address: {
@@ -23,6 +26,7 @@ export const site = {
 } as const;
 
 export const telHref = `tel:${site.phoneE164}`;
+export const secondaryTelHref = `tel:${site.phoneSecondaryE164}`;
 
 export function whatsappHref(message = "Hi Plan My Trip, I want to enquire about a tour package.") {
   return `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(message)}`;

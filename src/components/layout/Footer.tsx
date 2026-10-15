@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { navLinks, site, telHref, whatsappHref } from "@/lib/site";
+import { navLinks, site, telHref, secondaryTelHref, whatsappHref } from "@/lib/site";
 
 const destinations = [
   { href: "/destinations/katra-vaishno-devi", label: "Katra & Vaishno Devi" },
@@ -35,6 +35,8 @@ export function Footer() {
             {[a.street, a.locality, a.region, a.postalCode].filter(Boolean).join(", ")}
             <br />
             Phone: <a href={telHref} className="font-semibold text-navy-deep hover:text-orange">{site.phoneDisplay}</a>
+            <br />
+            Phone: <a href={secondaryTelHref} className="font-semibold text-navy-deep hover:text-orange">{site.phoneSecondaryDisplay}</a>
             <br />
             {site.email && <>Email: <a href={`mailto:${site.email}`} className="underline hover:text-orange">{site.email}</a></>}
           </address>

@@ -50,7 +50,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronDown, Phone } from "lucide-react";
-import { navLinks, site, telHref, whatsappHref } from "@/lib/site";
+import { navLinks, site, telHref, secondaryTelHref, whatsappHref } from "@/lib/site";
 import { TripSaathi } from "@/components/layout/TripSaathi";
 
 export function Header() {
@@ -114,6 +114,7 @@ export function Header() {
             <Phone className="size-4" aria-hidden="true" />
             {site.phoneDisplay}
           </a>
+          <a href={secondaryTelHref} className="inline-flex min-h-11 items-center whitespace-nowrap text-sm font-semibold text-navy hover:text-orange-deep">{site.phoneSecondaryDisplay}</a>
           <a
             href={whatsappHref()}
             target="_blank"

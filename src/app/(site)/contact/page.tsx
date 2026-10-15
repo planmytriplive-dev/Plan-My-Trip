@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { MapPin, Phone, ArrowUpRight, Mail } from "lucide-react";
-import { site, telHref, whatsappHref } from "@/lib/site";
+import { site, telHref, secondaryTelHref, whatsappHref } from "@/lib/site";
 import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
 
 export const metadata: Metadata = {
@@ -52,6 +52,13 @@ export default function ContactPage() {
               >
                 <Phone className="size-4" aria-hidden="true" />
                 Call {site.phoneDisplay}
+              </a>
+              <a
+                href={secondaryTelHref}
+                className="mt-2 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl border border-[#f0e6bd] px-5 font-bold text-ink transition-colors hover:bg-[#fff8d9] sm:ml-2 sm:mt-6 sm:w-auto"
+              >
+                <Phone className="size-4" aria-hidden="true" />
+                Call {site.phoneSecondaryDisplay}
               </a>
               <div className="mt-5 flex items-center gap-3 border-t border-[#f1eddf] pt-5">
                 <a
