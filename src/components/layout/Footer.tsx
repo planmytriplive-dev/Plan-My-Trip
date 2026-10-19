@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { navLinks, site, telHref, secondaryTelHref, whatsappHref } from "@/lib/site";
+import { GoogleBusinessLink } from "@/components/ui/GoogleBusinessLink";
 
 const destinations = [
   { href: "/destinations/katra-vaishno-devi", label: "Katra & Vaishno Devi" },
@@ -46,6 +47,7 @@ export function Footer() {
           <a href={whatsappHref()} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex min-h-11 items-center rounded-full bg-orange px-5 font-semibold text-white hover:bg-orange-deep">
             Talk to a travel expert
           </a>
+          <GoogleBusinessLink className="mt-3 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-navy-deep hover:text-orange" />
         </div>
         <nav aria-label="Footer">
           <p className="text-xs font-bold uppercase tracking-[0.14em] text-navy-deep">Explore</p>

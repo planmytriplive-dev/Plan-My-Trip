@@ -8,6 +8,7 @@ export const site = {
   tagline: "Jammu, Kashmir & Himachal tour packages",
   logo: "/logo/logo.png", // rename your logo file to logo.png (or change this path)
   url: "https://planmytrip.live",
+  googleBusinessProfileUrl: "https://www.google.com/searchviewer/10?output=search&svid=CAwSKRInCgNwdnESIE9oWXdlREE2TUhneE5EQXhNVGt4Wm1Sa1lqTTRNemRtGAo&hl=en-GB&gl=I",
   phoneDisplay: "70062 98659",
   phoneSecondaryDisplay: "99064 76847",
   phoneE164: `+91${RAW_PHONE}`,

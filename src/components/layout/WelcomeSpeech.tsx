@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import { GoogleBusinessLink } from "@/components/ui/GoogleBusinessLink";
 
 const SESSION_KEY = "pmt-welcome-spoken";
 const feminineVoiceHints = ["female", "samantha", "zira", "victoria", "karen", "susan", "tessa", "moira", "fiona", "veena", "heera", "aria", "jenny"];
@@ -49,9 +50,9 @@ export function WelcomeSpeech() {
       if (voice) utterance.voice = voice;
       utterance.onstart = () => {
         started = true;
-        setShowWelcome(false);
         try { window.sessionStorage.setItem(SESSION_KEY, "1"); } catch { /* Storage is optional. */ }
       };
+      utterance.onend = () => setShowWelcome(false);
       utterance.onerror = () => { queued = false; };
       window.speechSynthesis.speak(utterance);
       queued = true;
@@ -85,28 +86,31 @@ export function WelcomeSpeech() {
 
   if (pathname !== "/" || !showWelcome) return null;
   return (
-    <button
-      type="button"
-      onClick={() => {
-        if (!("speechSynthesis" in window) || !("SpeechSynthesisUtterance" in window)) return;
-        window.speechSynthesis.cancel();
-        const utterance = new SpeechSynthesisUtterance("Welcome to Plan My Trip.");
-        utterance.lang = "en-IN";
-        utterance.rate = 0.94;
-        utterance.pitch = 1.08;
-        utterance.volume = 1;
-        const voice = chooseVoice(window.speechSynthesis.getVoices());
-        if (voice) utterance.voice = voice;
-        utterance.onstart = () => {
-          try { window.sessionStorage.setItem(SESSION_KEY, "1"); } catch { /* Storage is optional. */ }
-          setShowWelcome(false);
-        };
-        window.speechSynthesis.speak(utterance);
-      }}
-      className="fixed bottom-24 right-4 z-40 rounded-full bg-white px-4 py-2 text-sm font-semibold text-navy shadow-lg ring-1 ring-navy/10 transition hover:bg-mist lg:bottom-5"
-      aria-label="Hear welcome to Plan My Trip"
-    >
-      Hear welcome
-    </button>
+    <div className="fixed bottom-24 right-4 z-40 flex flex-col items-end gap-2 lg:bottom-5">
+      <button
+        type="button"
+        onClick={() => {
+          if (!("speechSynthesis" in window) || !("SpeechSynthesisUtterance" in window)) return;
+          window.speechSynthesis.cancel();
+          const utterance = new SpeechSynthesisUtterance("Welcome to Plan My Trip.");
+          utterance.lang = "en-IN";
+          utterance.rate = 0.94;
+          utterance.pitch = 1.08;
+          utterance.volume = 1;
+          const voice = chooseVoice(window.speechSynthesis.getVoices());
+          if (voice) utterance.voice = voice;
+          utterance.onstart = () => {
+            try { window.sessionStorage.setItem(SESSION_KEY, "1"); } catch { /* Storage is optional. */ }
+          };
+          utterance.onend = () => setShowWelcome(false);
+          window.speechSynthesis.speak(utterance);
+        }}
+        className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-navy shadow-lg ring-1 ring-navy/10 transition hover:bg-mist"
+        aria-label="Hear welcome to Plan My Trip"
+      >
+        Hear welcome
+      </button>
+      <GoogleBusinessLink className="inline-flex min-h-10 items-center gap-2 rounded-full bg-white px-3 text-xs font-semibold text-navy shadow-lg ring-1 ring-navy/10 transition hover:bg-mist" />
+    </div>
   );
 }
