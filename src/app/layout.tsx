@@ -1,5 +1,5 @@
 
-// src/app/layout.tsx
+ // src/app/layout.tsx
 
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
@@ -70,13 +70,13 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
-// Google Analytics 4
+// Google Analytics 4 Measurement ID
 const GA_ID = "G-LN2K37W5SP";
 
-// Optional Google Tag Manager container ID.
-// Set NEXT_PUBLIC_GTM_ID in your environment only if you use GTM.
-const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
+// Set NEXT_PUBLIC_GTM_ID in Vercel to enable Google Tag Manager.
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID?.trim();
 
+// Travel Agency structured data
 const structuredData = [
   {
     "@context": "https://schema.org",
@@ -114,56 +114,40 @@ const structuredData = [
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
     <html
       lang="en-IN"
       className={`${archivo.variable} ${inter.variable}`}
     >
       <body>
-        {/* Load Google Analytics directly only when GTM is not configured. */}
-        {!GTM_ID && (
+        {/* Google Tag Manager */}
+        {GTM_ID ? (
           <>
             <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+              id="google-tag-manager"
               strategy="afterInteractive"
+              dangerouslySetInnerHTML={{
+                __html: `
+                  (function(w,d,s,l,i){
+                    w[l]=w[l]||[];
+                    w[l].push({
+                      'gtm.start': new Date().getTime(),
+                      event:'gtm.js'
+                    });
+                    var f=d.getElementsByTagName(s)[0],
+                        j=d.createElement(s),
+                        dl=l!='dataLayer'?'&l='+l:'';
+                    j.async=true;
+                    j.src=
+                      'https://www.googletagmanager.com/gtm.js?id='+i+dl;
+                    f.parentNode.insertBefore(j,f);
+                  })(window,document,'script','dataLayer','${GTM_ID}');
+                `,
+              }}
             />
-
-            <Script id="google-analytics" strategy="afterInteractive">
-              {`
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){window.dataLayer.push(arguments);}
-                window.gtag = gtag;
-                gtag('js', new Date());
-                gtag('config', '${GA_ID}');
-              `}
-            </Script>
-          </>
-        )}
-
-        {/* Optional Google Tag Manager integration. */}
-        {GTM_ID && (
-          <>
-            <Script id="gtm" strategy="afterInteractive">
-              {`
-                (function(w,d,s,l,i){
-                  w[l]=w[l]||[];
-                  w[l].push({
-                    'gtm.start': new Date().getTime(),
-                    event:'gtm.js'
-                  });
-                  var f=d.getElementsByTagName(s)[0],
-                      j=d.createElement(s),
-                      dl=l!='dataLayer'?'&l='+l:'';
-                  j.async=true;
-                  j.src=
-                    'https://www.googletagmanager.com/gtm.js?id='+i+dl;
-                  f.parentNode.insertBefore(j,f);
-                })(window,document,'script','dataLayer','${GTM_ID}');
-              `}
-            </Script>
 
             <noscript>
               <iframe
@@ -178,9 +162,31 @@ export default function RootLayout({
               />
             </noscript>
           </>
+        ) : (
+          /* Fallback: direct GA4 tracking when GTM is not configured */
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+              strategy="afterInteractive"
+            />
+
+            <Script
+              id="google-analytics"
+              strategy="afterInteractive"
+            >
+              {`
+                window.dataLayer = window.dataLayer || [];
+                window.gtag = function(){
+                  window.dataLayer.push(arguments);
+                };
+                window.gtag('js', new Date());
+                window.gtag('config', '${GA_ID}');
+              `}
+            </Script>
+          </>
         )}
 
-        {/* Structured data for search engines. */}
+        {/* Structured data for search engines */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
