@@ -55,11 +55,27 @@ const coverPhotos: Record<string, string> = {
 const stopPhotos: Record<string, Record<string, string>> = {
   "katra-vaishno-devi": { "Katra": "/images/katra-travel-expert.png", "Vaishno Devi Bhawan": "/images/vaishno-devi-yatra.png" },
   srinagar: { "Dal Lake": "/images/srinagar-dal-lake.png", "Mughal Gardens": "/images/mughal%20garden.png", "Srinagar Old City": "/images/Srinagar%20Old%20City.png" },
-  gulmarg: { "Gulmarg meadow": "/images/gulmarg-meadows.png" },
-  pahalgam: { "Lidder river": "/images/pahalgam.png" },
-  sonamarg: { "Sonamarg valley": "/images/sonamarg.png", "Meadow viewpoints": "/images/sonamarg-glacier.png" },
+  gulmarg: {
+    "Gulmarg meadow": "/images/gulmarg-meadows.png",
+    "Gondola area": "/images/gondoal_gulmarg.png",
+    "Mountain viewpoints": "/images/Mountain%20viewpoints%20gulmarg.jpg",
+  },
+  pahalgam: {
+    "Lidder river": "/images/pahalgam.png",
+    "Pahalgam town": "/images/Pahalgam%20town%20pahalgam.jpg",
+    "Valley viewpoints": "/images/Valley%20viewpoints%20pahalgam.jpg",
+  },
+  sonamarg: {
+    "Sonamarg valley": "/images/sonamarg.png",
+    "Sindh river": "/images/sindh%20river%20sonmarg.jpg",
+    "Meadow viewpoints": "/images/sonamarg-glacier.png",
+  },
   jammu: { "Jammu city": "/images/jammu.png" },
-  yusmarg: { "Yusmarg meadow": "/images/yusmarg.png" },
+  yusmarg: {
+    "Yusmarg meadow": "/images/yusmarg.png",
+    "Doodh Ganga": "/images/Doodh%20Ganga%20yusmarg.jpg",
+    "Sang-e-Safed Valley": "/images/Sang-e-Safed%20Valley%20yusmarg.jpg",
+  },
   doodhpathri: { "Doodhpathri meadow": "/images/Doodhpathri.png" },
   "gurez-valley": { Dawar: "/images/Gurez%20%26%20Tulail%20Valleys.png" },
   "lolab-bangus": { "Lolab Valley": "/images/Lolab%20%26%20Bangus%20Valleys.jpg" },
@@ -213,12 +229,23 @@ export default async function DestinationPage({ params }: Props) {
               <div className="mt-7 grid gap-3 sm:grid-cols-3">
                 {place.stops.map((stop, index) => {
                   const stopImage = stopPhotos[place.slug]?.[stop];
-                  return <div key={stop} className={`place-stop place-stop-${index} ${stopImage ? "place-stop-photo" : ""}`}>
-                    {stopImage && <Image src={stopImage} alt={`${stop}, ${place.name}`} fill sizes="(max-width: 639px) 100vw, 33vw" className="object-cover" />}
-                    <span className="place-stop-shade" aria-hidden="true" />
-                    <MapPin className="relative z-10 size-4 text-white" aria-hidden="true" />
-                    <span className="relative z-10 font-semibold text-white">{stop}</span>
-                  </div>
+                  if (!stopImage) {
+                    return (
+                      <div key={stop} className="flex min-h-16 items-center gap-2 rounded-xl border border-navy/10 px-4 py-3 text-navy">
+                        <MapPin className="size-4 shrink-0 text-orange-deep" aria-hidden="true" />
+                        <span className="font-semibold">{stop}</span>
+                      </div>
+                    );
+                  }
+
+                  return (
+                    <div key={stop} className={`place-stop place-stop-${index} place-stop-photo`}>
+                      <Image src={stopImage} alt={`${stop}, ${place.name}`} fill sizes="(max-width: 639px) 100vw, 33vw" className="object-cover" />
+                      <span className="place-stop-shade" aria-hidden="true" />
+                      <MapPin className="relative z-10 size-4 text-white" aria-hidden="true" />
+                      <span className="relative z-10 font-semibold text-white">{stop}</span>
+                    </div>
+                  );
                 })}
               </div>
             </section>

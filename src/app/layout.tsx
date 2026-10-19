@@ -35,6 +35,7 @@ export const viewport: Viewport = {
 };
 
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
+const GA_ID = "G-LN2K37W5SP";
 const structuredData = [
   { "@context": "https://schema.org", "@type": "TravelAgency", "@id": `${site.url}/#travel-agency`, name: site.name, url: site.url, logo: new URL(site.logo, site.url).toString(), telephone: site.phoneE164, address: { "@type": "PostalAddress", addressLocality: site.address.locality, addressRegion: site.address.region, postalCode: site.address.postalCode, addressCountry: site.address.country }, areaServed: ["Katra", "Jammu", "Jammu and Kashmir", "Srinagar", "Kashmir", "Himachal Pradesh", "Shimla", "Manali"] },
   { "@context": "https://schema.org", "@type": "WebSite", name: site.name, url: site.url },
@@ -44,6 +45,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en-IN" className={`${archivo.variable} ${inter.variable}`}>
       <body>
+        <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${GA_ID}');`}
+        </Script>
         {GTM_ID && (
           <>
             <noscript>
