@@ -23,11 +23,11 @@ export default function CustomizePackagePage() {
           </Link>
           <span className="eyebrow mt-5">Your trip, your way</span>
           <h1 className="mt-2 max-w-3xl font-display text-4xl font-extrabold leading-tight text-ink md:text-6xl">
-            Build a trip around you.
+            Build a trip around you...!
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-7 text-ink/70 md:text-lg">
             Share your destination, travel dates and priorities. Our team will
-            help shape a trip around your group.
+            help to plan a trip.
           </p>
         </div>
       </section>

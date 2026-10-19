@@ -1,30 +1,66 @@
+
+// src/app/layout.tsx
+
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import Script from "next/script";
 import { site } from "@/lib/site";
 import "./globals.css";
 
-const archivo = localFont({ src: "./fonts/archivo-latin.woff2", weight: "700 900", variable: "--font-archivo", display: "swap" });
-const inter = localFont({ src: "./fonts/inter-400-latin.woff2", weight: "100 900", variable: "--font-inter", display: "swap" });
+const archivo = localFont({
+  src: "./fonts/archivo-latin.woff2",
+  weight: "700 900",
+  variable: "--font-archivo",
+  display: "swap",
+});
+
+const inter = localFont({
+  src: "./fonts/inter-400-latin.woff2",
+  weight: "100 900",
+  variable: "--font-inter",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
+
   title: {
-    default: "Travel Agency in Katra | Jammu, Kashmir & Himachal Tour Packages | Plan My Trip",
+    default:
+      "Travel Agency in Katra | Jammu, Kashmir & Himachal Tour Packages | Plan My Trip",
     template: `%s | ${site.name}`,
   },
+
   description:
     "Plan My Trip offers Vaishno Devi yatra, Jammu and Kashmir tours, and Himachal Pradesh holiday packages from Katra. Call or WhatsApp 70062 98659 to discuss your trip.",
+
   applicationName: site.name,
+
   icons: {
     icon: [{ url: site.logo, type: "image/png" }],
     shortcut: [{ url: site.logo, type: "image/png" }],
     apple: [{ url: site.logo, type: "image/png" }],
   },
-  openGraph: { type: "website", locale: "en_IN", siteName: site.name, images: [site.logo] },
-  twitter: { card: "summary_large_image", images: [site.logo] },
-  alternates: { canonical: "/" },
-  robots: { index: true, follow: true },
+
+  openGraph: {
+    type: "website",
+    locale: "en_IN",
+    siteName: site.name,
+    images: [site.logo],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    images: [site.logo],
+  },
+
+  alternates: {
+    canonical: "/",
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export const viewport: Viewport = {
@@ -34,32 +70,124 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
-const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
+// Google Analytics 4
 const GA_ID = "G-LN2K37W5SP";
+
+// Optional Google Tag Manager container ID.
+// Set NEXT_PUBLIC_GTM_ID in your environment only if you use GTM.
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
+
 const structuredData = [
-  { "@context": "https://schema.org", "@type": "TravelAgency", "@id": `${site.url}/#travel-agency`, name: site.name, url: site.url, logo: new URL(site.logo, site.url).toString(), telephone: site.phoneE164, address: { "@type": "PostalAddress", addressLocality: site.address.locality, addressRegion: site.address.region, postalCode: site.address.postalCode, addressCountry: site.address.country }, areaServed: ["Katra", "Jammu", "Jammu and Kashmir", "Srinagar", "Kashmir", "Himachal Pradesh", "Shimla", "Manali"] },
-  { "@context": "https://schema.org", "@type": "WebSite", name: site.name, url: site.url },
+  {
+    "@context": "https://schema.org",
+    "@type": "TravelAgency",
+    "@id": `${site.url}/#travel-agency`,
+    name: site.name,
+    url: site.url,
+    logo: new URL(site.logo, site.url).toString(),
+    telephone: site.phoneE164,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: site.address.locality,
+      addressRegion: site.address.region,
+      postalCode: site.address.postalCode,
+      addressCountry: site.address.country,
+    },
+    areaServed: [
+      "Katra",
+      "Jammu",
+      "Jammu and Kashmir",
+      "Srinagar",
+      "Kashmir",
+      "Himachal Pradesh",
+      "Shimla",
+      "Manali",
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: site.name,
+    url: site.url,
+  },
 ];
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="en-IN" className={`${archivo.variable} ${inter.variable}`}>
+    <html
+      lang="en-IN"
+      className={`${archivo.variable} ${inter.variable}`}
+    >
       <body>
-        <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${GA_ID}');`}
-        </Script>
-        {GTM_ID && (
+        {/* Load Google Analytics directly only when GTM is not configured. */}
+        {!GTM_ID && (
           <>
-            <noscript>
-              <iframe src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`} height="0" width="0" style={{ display: "none", visibility: "hidden" }} />
-            </noscript>
-            <Script id="gtm" strategy="afterInteractive">
-              {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${GTM_ID}');`}
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+              strategy="afterInteractive"
+            />
+
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){window.dataLayer.push(arguments);}
+                window.gtag = gtag;
+                gtag('js', new Date());
+                gtag('config', '${GA_ID}');
+              `}
             </Script>
           </>
         )}
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+
+        {/* Optional Google Tag Manager integration. */}
+        {GTM_ID && (
+          <>
+            <Script id="gtm" strategy="afterInteractive">
+              {`
+                (function(w,d,s,l,i){
+                  w[l]=w[l]||[];
+                  w[l].push({
+                    'gtm.start': new Date().getTime(),
+                    event:'gtm.js'
+                  });
+                  var f=d.getElementsByTagName(s)[0],
+                      j=d.createElement(s),
+                      dl=l!='dataLayer'?'&l='+l:'';
+                  j.async=true;
+                  j.src=
+                    'https://www.googletagmanager.com/gtm.js?id='+i+dl;
+                  f.parentNode.insertBefore(j,f);
+                })(window,document,'script','dataLayer','${GTM_ID}');
+              `}
+            </Script>
+
+            <noscript>
+              <iframe
+                src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+                height="0"
+                width="0"
+                style={{
+                  display: "none",
+                  visibility: "hidden",
+                }}
+                title="Google Tag Manager"
+              />
+            </noscript>
+          </>
+        )}
+
+        {/* Structured data for search engines. */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(structuredData),
+          }}
+        />
+
         {children}
       </body>
     </html>
